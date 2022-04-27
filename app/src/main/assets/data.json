@@ -1,0 +1,308 @@
+{
+  "languages": [
+    {
+      "id": 1,
+      "name": "Русский",
+      "locale": "ru",
+      "region":"RU",
+      "data": [
+        {
+          "word_id": 1,
+          "value": "Здравствуйте",
+          "transcrypt": "ˈzdrastvʊjtʲɪ",
+          "transcrypt_cyr": "Здравствуйте"
+        },
+        {
+          "word_id": 2,
+          "value": "Привет",
+          "transcrypt": "",
+          "transcrypt_cyr": "Привет"
+        },
+        {
+          "word_id": 3,
+          "value": "До Свидания",
+          "transcrypt": "",
+          "transcrypt_cyr": "До Свидания"
+        },
+        {
+          "word_id": 4,
+          "value": "Пока",
+          "transcrypt": "",
+          "transcrypt_cyr": "Пока"
+        },
+        {
+          "word_id": 5,
+          "value": "Да",
+          "transcrypt": "",
+          "transcrypt_cyr": "Да"
+        },
+        {
+          "word_id": 6,
+          "value": "Нет",
+          "transcrypt": "",
+          "transcrypt_cyr": "Нет"
+        },
+        {
+          "word_id": 7,
+          "value": "Спасибо",
+          "transcrypt": "",
+          "transcrypt_cyr": "Спасибо"
+        },
+        {
+          "word_id": 9,
+          "value": "Пожалуйста",
+          "transcrypt": "",
+          "transcrypt_cyr": "Пожалуйста"
+        },
+        {
+          "word_id": 10,
+          "value": "Хорошо",
+          "transcrypt": "",
+          "transcrypt_cyr": "Хорошо"
+        },
+        {
+          "word_id": 11,
+          "value": "Плохо",
+          "transcrypt": "",
+          "transcrypt_cyr": "Плохо"
+        },
+        {
+          "word_id": 12,
+          "value": "Как дела?",
+          "transcrypt": "",
+          "transcrypt_cyr": "Как дела?"
+        },
+        {
+          "word_id": 13,
+          "value": "Дурак",
+          "transcrypt": "",
+          "transcrypt_cyr": "Дурак"
+        },
+        {
+          "word_id": 14,
+          "value": "Извините",
+          "transcrypt": "",
+          "transcrypt_cyr": "Извините"
+        },
+        {
+          "word_id": 20,
+          "value": "Ноль",
+          "transcrypt": "",
+          "transcrypt_cyr": "Ноль"
+        },
+        {
+          "word_id": 21,
+          "value": "Один",
+          "transcrypt": "",
+          "transcrypt_cyr": "Один"
+        },
+        {
+          "word_id": 22,
+          "value": "Два",
+          "transcrypt": "",
+          "transcrypt_cyr": "Два"
+        },
+        {
+          "word_id": 23,
+          "value": "Три",
+          "transcrypt": "",
+          "transcrypt_cyr": "Три"
+        },
+        {
+          "word_id": 24,
+          "value": "Четыре",
+          "transcrypt": "",
+          "transcrypt_cyr": "Четыре"
+        },
+        {
+          "word_id": 25,
+          "value": "Пять",
+          "transcrypt": "",
+          "transcrypt_cyr": "Пять"
+        },
+        {
+          "word_id": 26,
+          "value": "Шесть",
+          "transcrypt": "",
+          "transcrypt_cyr": "Шесть"
+        },
+        {
+          "word_id": 27,
+          "value": "Семь",
+          "transcrypt": "",
+          "transcrypt_cyr": "Семь"
+        },
+        {
+          "word_id": 28,
+          "value": "Восемь",
+          "transcrypt": "",
+          "transcrypt_cyr": "Восемь"
+        },
+        {
+          "word_id": 29,
+          "value": "Девять",
+          "transcrypt": "",
+          "transcrypt_cyr": "Девять"
+        },
+        {
+          "word_id": 31,
+          "value": "Десять",
+          "transcrypt": "",
+          "transcrypt_cyr": "Десять"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Греческий",
+      "locale": "el",
+      "region": "GR",
+      "data": [
+        {
+          "word_id": 1,
+          "value": "γεια σας",
+          "transcrypt": "",
+          "transcrypt_cyr": "йеа сас"
+        },
+        {
+          "word_id": 2,
+          "value": "Γεια",
+          "transcrypt": "",
+          "transcrypt_cyr": "Йяа"
+        },
+        {
+          "word_id": 3,
+          "value": "Αντιο σας",
+          "transcrypt": "",
+          "transcrypt_cyr": "айвио сас"
+        },
+        {
+          "word_id": 4,
+          "value": "Αντίο",
+          "transcrypt": "",
+          "transcrypt_cyr": "айвио"
+        },
+        {
+          "word_id": 5,
+          "value": "Ναι",
+          "transcrypt": "",
+          "transcrypt_cyr": "Нэ"
+        },
+        {
+          "word_id": 6,
+          "value": "Οχι",
+          "transcrypt": "",
+          "transcrypt_cyr": "О́хи"
+        },
+        {
+          "word_id": 7,
+          "value": "Ευχαριστώ",
+          "transcrypt": "",
+          "transcrypt_cyr": "Эвахристо́"
+        },
+        {
+          "word_id": 9,
+          "value": "Παρακαλώ",
+          "transcrypt": "",
+          "transcrypt_cyr": "Паракало́"
+        },
+        {
+          "word_id": 10,
+          "value": "Καλά",
+          "transcrypt": "",
+          "transcrypt_cyr": "Кала́"
+        },
+        {
+          "word_id": 11,
+          "value": "Κακώς",
+          "transcrypt": "Kakós",
+          "transcrypt_cyr": "какос"
+        },
+        {
+          "word_id": 12,
+          "value": "Τι κάνεις;",
+          "transcrypt": "",
+          "transcrypt_cyr": "Ти ка́нис"
+        },
+        {
+          "word_id": 13,
+          "value": "ανόητος",
+          "transcrypt": "",
+          "transcrypt_cyr": "аноитес"
+        },
+        {
+          "word_id": 14,
+          "value": "Συγνώμη",
+          "transcrypt": "",
+          "transcrypt_cyr": "Сигно́ми"
+        },
+        {
+          "word_id": 20,
+          "value": "Μηδέν",
+          "transcrypt": "",
+          "transcrypt_cyr": "Мидэ́н"
+        },
+        {
+          "word_id": 21,
+          "value": "Ένα",
+          "transcrypt": "",
+          "transcrypt_cyr": "Э́на"
+        },
+        {
+          "word_id": 22,
+          "value": "Δύο",
+          "transcrypt": "",
+          "transcrypt_cyr": "Ди́о"
+        },
+        {
+          "word_id": 23,
+          "value": "Τρία",
+          "transcrypt": "",
+          "transcrypt_cyr": "Три́а"
+        },
+        {
+          "word_id": 24,
+          "value": "Τέσσερα",
+          "transcrypt": "",
+          "transcrypt_cyr": "Тэ́сэра"
+        },
+        {
+          "word_id": 25,
+          "value": "Πέντε",
+          "transcrypt": "",
+          "transcrypt_cyr": "Пэ́ндэ"
+        },
+        {
+          "word_id": 26,
+          "value": "Έξι",
+          "transcrypt": "",
+          "transcrypt_cyr": "Э́кси"
+        },
+        {
+          "word_id": 27,
+          "value": "Εφτά",
+          "transcrypt": "",
+          "transcrypt_cyr": "Эфта́"
+        },
+        {
+          "word_id": 28,
+          "value": "Οκτώ",
+          "transcrypt": "",
+          "transcrypt_cyr": "Окто́"
+        },
+        {
+          "word_id": 29,
+          "value": "Εννέα",
+          "transcrypt": "",
+          "transcrypt_cyr": "Эня́"
+        },
+        {
+          "word_id": 31,
+          "value": "Δέκα",
+          "transcrypt": "",
+          "transcrypt_cyr": "Дэ́ка"
+        }
+      ]
+    }
+  ]
+}
