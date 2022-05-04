@@ -3,4 +3,6 @@
   <string name="playAll">Play All</string>
   <string name="linear_layout_manager">Linear</string>
   <string name="grid_layout_manager">Grid</string>
+  <string name="base">Base</string>
+  <string name="learn">Learn</string>
 </resources>

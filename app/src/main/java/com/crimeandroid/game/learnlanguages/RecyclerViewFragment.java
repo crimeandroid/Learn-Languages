@@ -40,9 +40,11 @@ public class RecyclerViewFragment extends Fragment {
   protected RecyclerView mRecyclerView;
   protected WordRecycleViewAdapter mAdapter;
   protected RecyclerView.LayoutManager mLayoutManager;
-  protected List<Word> wordList;
+  protected Data data;
   private int position = -1;
   private boolean playerActive = false;
+  private Locale localeLearn;
+  private Locale localeBase;
 
   public static void startSound(String filename, Context applicationContext,
       Runnable... callback) {
@@ -80,9 +82,8 @@ public class RecyclerViewFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setHasOptionsMenu(true);
-
-    // Initialize dataset, this data would usually come from a local content provider or
-    // remote server.
+    localeLearn = new Locale("el", "GR");
+    localeBase = new Locale("ru", "RU");
     initDataset();
   }
 
@@ -91,21 +92,11 @@ public class RecyclerViewFragment extends Fragment {
       Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.recycler_view_frag, container, false);
     rootView.setTag(TAG);
-
-    // BEGIN_INCLUDE(initializeRecyclerView)
     mRecyclerView = rootView.findViewById(R.id.recyclerView);
-
-    // LinearLayoutManager is used here, this will layout the elements in a similar fashion
-    // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
-    // elements are laid out.
     mLayoutManager = new LinearLayoutManager(getActivity());
-
     setRecyclerViewLayoutManager();
-
-    mAdapter = new WordRecycleViewAdapter(wordList, getContext());
-    // Set CustomAdapter as the adapter for RecyclerView.
+    mAdapter = new WordRecycleViewAdapter(data, getContext(), localeLearn, localeBase);
     mRecyclerView.setAdapter(mAdapter);
-
     return rootView;
   }
 
@@ -114,14 +105,11 @@ public class RecyclerViewFragment extends Fragment {
    */
   public void setRecyclerViewLayoutManager() {
     int scrollPosition = 0;
-
-    // If a layout manager has already been set, get current scroll position.
     if (mRecyclerView.getLayoutManager() != null) {
       scrollPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
           .findFirstCompletelyVisibleItemPosition();
     }
     mLayoutManager = new LinearLayoutManager(getActivity());
-
     mRecyclerView.setLayoutManager(mLayoutManager);
     mRecyclerView.scrollToPosition(scrollPosition);
   }
@@ -131,7 +119,7 @@ public class RecyclerViewFragment extends Fragment {
    * provider or remote server.
    */
   private void initDataset() {
-    this.wordList = new ArrayList<>();
+    this.data = new Data(new ArrayList<>());
     StringBuilder sb = new StringBuilder();
     try (InputStream is = requireContext().getApplicationContext().getAssets().open("data.json");
         BufferedReader r = new BufferedReader(new InputStreamReader(is))) {
@@ -142,28 +130,29 @@ public class RecyclerViewFragment extends Fragment {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     try {
-      //getting the whole json object from the response
       JSONObject obj = new JSONObject(sb.toString());
-
-      //we have the array named tutorial inside the object
-      //so here we are getting that json array
       JSONArray languagesArray = obj.getJSONArray("languages");
-      List<Word> rusWords = getLanguageWords(languagesArray.getJSONObject(0), null);
-      //now looping through all the elements of the json array
-      for (int languageId = 1; languageId < languagesArray.length(); languageId++) {
-        //getting the json object of the particular index inside the array
+      for (int languageId = 0; languageId < languagesArray.length(); languageId++) {
         JSONObject languageObject = languagesArray.getJSONObject(languageId);
-        this.wordList.addAll(getLanguageWords(languageObject, rusWords));
+        data.getLanguages().add(getLanguage(languageObject));
+      }
+      Language baseLanguage = WordRecycleViewAdapter
+          .findLanguageByLocale(localeBase, data.languages);
+      for (Language language : data.getLanguages()) {
+        if (language.getLocale().toString().equalsIgnoreCase(localeBase.toString())) {
+          continue;
+        }
+        for (Word word : language.getData()) {
+          word.setTranslate(WordRecycleViewAdapter.findWord(word.getId(), baseLanguage).getValue());
+        }
       }
     } catch (JSONException e) {
       e.printStackTrace();
     }
   }
 
-  private List<Word> getLanguageWords(JSONObject languageObject,
-      List<Word> rusWords) throws JSONException {
+  private Language getLanguage(JSONObject languageObject) throws JSONException {
     List<Word> wordList = new ArrayList<>();
     JSONArray wordsArray = languageObject.getJSONArray("data");
     Language language = new Language(
@@ -174,41 +163,28 @@ public class RecyclerViewFragment extends Fragment {
     );
     for (int j = 0; j < wordsArray.length(); j++) {
       JSONObject data = wordsArray.getJSONObject(j);
-      //creating a word object and giving them the values from json object
       int wordId = data.getInt("word_id");
-      Word rusWord = null;
-      if (rusWords != null) {
-        for (Word w : rusWords) {
-          if (w.id == wordId) {
-            rusWord = w;
-            break;
-          }
-        }
-      }
       Word word = new Word(
           language,
           wordId,
           data.getString("value"),
           data.getString("transcrypt"),
           data.getString("transcrypt_cyr"),
-          rusWord != null ? rusWord.getValue() : ""
-
+          ""
       );
       wordList.add(word);
     }
-    return wordList;
+    return language;
   }
 
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
     inflater.inflate(R.menu.menu, menu);
-
     super.onCreateOptionsMenu(menu, inflater);
   }
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
-
     switch (menuItem.getItemId()) {
       case R.id.playAll: {
         playerActive = !playerActive;
@@ -233,7 +209,7 @@ public class RecyclerViewFragment extends Fragment {
       position = 0;
     }
     mAdapter.setCurrentPosition(position);
-mLayoutManager.scrollToPosition(position);
+    mLayoutManager.scrollToPosition(position);
     Word item = mAdapter.getItem(position);
     String locationCurrent = item.getLocation();
     String locationNext = item.getLocationRus();

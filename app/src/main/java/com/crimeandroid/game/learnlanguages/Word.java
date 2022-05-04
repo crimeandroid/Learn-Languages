@@ -6,11 +6,11 @@ public class Word {
 
   private static final Locale LOCALE_ru_RU = new Locale("ru", "RU");
   int id;
-      String value;
-      String transcrypt;
-      String transcryptCyr;
-      String translate;
-      Language language;
+  String value;
+  String transcrypt;
+  String transcryptCyr;
+  String translate;
+  Language language;
 
   public Word(Language language, int id, String value, String transcrypt, String transcryptCyr,
       String translate) {
@@ -42,18 +42,24 @@ public class Word {
     return translate;
   }
 
+  public void setTranslate(String translate) {
+    this.translate = translate;
+  }
+
   public Language getLanguage() {
     return language;
   }
 
   public String getLocation() {
-      return getLocation(this.language.getLocale());
+    return getLocation(this.language.getLocale());
   }
+
   public String getLocationRus() {
-      return getLocation(LOCALE_ru_RU);
+    return getLocation(LOCALE_ru_RU);
   }
+
   private String getLocation(Locale locale) {
-      return String.format(Locale.ENGLISH, "%1$s/%1$s-%2$03d.mp3",
-          locale, this.getId());
+    return String.format(Locale.ENGLISH, "%1$s/%1$s-%2$03d.mp3",
+        locale, this.getId());
   }
 }

@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible">
   <title>Google Text to Speech</title>
-
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
-
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+        rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"
+        rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+          type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"
+          type="text/javascript"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -24,7 +20,6 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-
 <body>
 <!-- Page Content -->
 <div class="container">
@@ -48,14 +43,13 @@
     </div>
     <div class="data">
       <table align="center"
-             id="table" border="1">
+             border="1" id="table">
       </table>
     </div>
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
-
         jQuery.noConflict();
         (function($)
         {
@@ -64,7 +58,6 @@
                 var words = "" + location.search;
                 words = decodeURIComponent(words.split('&')[0].replace(
                     "?q=", ""));
-
                 if (words)
                 {
                     $("#words").val(words);
@@ -76,7 +69,6 @@
                 {
                     $("#tl").val(tl);
                 }
-
                 $("#play").on("click", function()
                 {
                     var words = "" + $("#words").val();
@@ -84,7 +76,6 @@
                     $("audio#player").attr('src',
                         'http://translate.google.com/translate_tts?ie=UTF-8&client='+tl+'&tl='+tl+'&q=' +
                         words).trigger("play");
-
                 });
             });
         })(jQuery);
@@ -98,21 +89,16 @@ function readTextFile(file, callback) {
         }
     }
     rawFile.send(null);
-
 <!--    fetch(file)-->
 <!--  .then(response => response.json())-->
 <!--  .then(callback());-->
 }
 
-
 function constructTable(selector) {
     readTextFile("data.json", function(text){
         var list = JSON.parse(text);
         console.log(list);
-        // Getting the all column names
         var cols = Headers(list, selector);
-
-        // Traversing the JSON data
         for (var i = 0; i < list.languages[0].data.length; i++) {
             var row = $('<tr/>');
             for (var colIndex = 0; colIndex < cols.length; colIndex++)
@@ -121,22 +107,16 @@ function constructTable(selector) {
             var w = l.data[i];
                 var val = w.value;
 
-                // If there is any key, which is matching
-                // with the column name
                 if (val == null) val = "";
                     row.append($('<td/>').append( "<p><a href='index.html?q="+val+"&tl="+l.locale+"'>"+val+"</a></p>"));
             }
-
-            // Adding each row to the table
             $(selector).append(row);
         }
       });
     }
-
         function Headers(list, selector) {
             var columns = [];
             var header = $('<tr/>');
-
             for (var i = 0; i < list.languages.length; i++) {
                 var row = list.languages[i];
                         header.append($('<th/>').html(row.name));
@@ -144,17 +124,14 @@ columns.push(row.name);
 <!--                for (var k in row) {-->
 <!--                    if ($.inArray(k, columns) == -1) {-->
 <!--                        columns.push(k.name);-->
-
 <!--                        // Creating the header-->
 <!--                    }-->
 <!--                }-->
             }
-
-            // Appending the header to the table
             $(selector).append(header);
             return columns;
         }
+
 </script>
 </body>
-
 </html>

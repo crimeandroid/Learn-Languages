@@ -19,50 +19,58 @@ public class WordRecycleViewAdapter extends
 
   private static final String TAG = "WordRecycleViewAdapter";
   private final Context mContext;
-
-  private final List<Word> mDataSet;
-  // END_INCLUDE(recyclerViewOnCreateViewHolder)
+  private final Data data;
+  private final Locale localeLearn;
+  private final Locale localeBase;
   private int currentPosition = RecyclerView.NO_POSITION;
-
-  // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
 
   /**
    * Initialize the dataset of the Adapter.
    *
    * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
    */
-  public WordRecycleViewAdapter(List<Word> dataSet, Context context) {
-    this.mDataSet = dataSet;
+  public WordRecycleViewAdapter(Data dataSet, Context context, Locale learn, Locale base) {
+    this.data = dataSet;
     this.mContext = context;
+    this.localeLearn = learn;
+    this.localeBase = base;
   }
-  // END_INCLUDE(recyclerViewSampleViewHolder)
+
+  public static Word findWord(int id, Language language) {
+    for (Word word : language.getData()) {
+      if (word.getId() == id) {
+        return word;
+      }
+    }
+    throw new IllegalArgumentException("id = " + id);
+  }
+
+  public static Language findLanguageByLocale(Locale locale, List<Language> languages) {
+    for (Language language : languages) {
+      if (language.getLocale().toString().equalsIgnoreCase(locale.toString())) {
+        return language;
+      }
+    }
+    throw new IllegalArgumentException(locale.toString());
+  }
 
   public Word getItem(int position) {
-    return mDataSet.get(position);
+    return findLanguageByLocale(this.localeLearn, this.data.languages).getData().get(position);
   }
 
-  // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
-  // Create new views (invoked by the layout manager)
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-    // Create a new view.
     View v = LayoutInflater.from(viewGroup.getContext())
         .inflate(R.layout.list_item, viewGroup, false);
-
     return new ViewHolder(v);
   }
 
-  // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
-  // Replace the contents of a view (invoked by the layout manager)
   @Override
   public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
     int currentPosition = this.currentPosition;
     viewHolder.itemView.setSelected(currentPosition == position);
-
-    // Get element from your dataset at this position and replace the contents of the view
-    // with that element
-    Word wordObject = this.mDataSet.get(position);
+    Word wordObject = findLanguageByLocale(this.localeLearn, this.data.getLanguages()).getData()
+        .get(position);
     viewHolder.wordId.setText(String.format(Locale.ENGLISH, "%d", wordObject.getId()));
     viewHolder.value.setText(wordObject.getValue());
     viewHolder.transcription.setText(wordObject.getTranscryptCyr());
@@ -76,23 +84,14 @@ public class WordRecycleViewAdapter extends
 
   private void setOnClick(ViewHolder viewHolder, int position, ImageButton playButton,
       String location) {
-/*    playButton.setImageResource(android.R.drawable.ic_media_pause);
-    this.notifyItemChanged(position);*/
-
-    startSound(location/*,
-        () -> {
-          viewHolder.play.setImageResource(android.R.drawable.ic_media_play);
-          this.notifyItemChanged(position);
-        }*/);
+    startSound(location);
     setCurrentPosition(position);
   }
 
-  // Return the size of your dataset (invoked by the layout manager)
   @Override
   public int getItemCount() {
-    return mDataSet.size();
+    return findLanguageByLocale(localeLearn, this.data.getLanguages()).getData().size();
   }
-  // END_INCLUDE(recyclerViewOnBindViewHolder)
 
   private void startSound(String filename, Runnable... callback) {
     RecyclerViewFragment.startSound(
@@ -122,14 +121,12 @@ public class WordRecycleViewAdapter extends
 
     public ViewHolder(View v) {
       super(v);
-      // Define click listener for the ViewHolder's View.
       v.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
         }
       });
-      //getting text views
       this.value = v.findViewById(R.id.word);
       this.wordId = v.findViewById(R.id.wordId);
       this.transcription = v.findViewById(R.id.transcription);

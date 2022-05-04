@@ -1,13 +1,16 @@
 package com.crimeandroid.game.learnlanguages;
 
-public class Data {
-  Language[] languages;
+import java.util.List;
 
-  public Data(Language[] languages) {
+public class Data {
+
+  List<Language> languages;
+
+  public Data(List<Language> languages) {
     this.languages = languages;
   }
 
-  public Language[] getLanguages() {
+  public List<Language> getLanguages() {
     return languages;
   }
 }

@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Русский",
       "locale": "ru",
-      "region":"RU",
+      "region": "RU",
       "data": [
         {
           "word_id": 1,

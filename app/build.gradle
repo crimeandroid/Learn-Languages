@@ -1,20 +1,16 @@
 plugins {
     id 'com.android.application'
 }
-
 android {
     compileSdk 31
-
     defaultConfig {
         applicationId "com.crimeandroid.game.learnlanguages"
         minSdk 19
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -26,9 +22,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     useLibrary 'org.apache.http.legacy'
-
 }
-
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'

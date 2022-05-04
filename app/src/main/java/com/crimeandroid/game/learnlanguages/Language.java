@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class Language {
+
   int id;
   String name;
   Locale locale;
